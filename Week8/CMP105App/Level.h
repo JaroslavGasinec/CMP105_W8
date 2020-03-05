@@ -4,6 +4,7 @@
 #include "Framework/Input.h"
 #include <string>
 #include <iostream>
+#include "Ball.h"
 
 
 class Level{
@@ -14,6 +15,7 @@ public:
 	void handleInput(float dt);
 	void update(float dt);
 	void render();
+	bool circularCollisionCheck(Ball* b1,Ball* b2);
 
 private:
 	// Default functions for rendering to the screen.
@@ -23,4 +25,8 @@ private:
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
+	Ball* ball1;
+	Ball* ball2;
+	sf::Texture ballT;
+	sf::Vector2u windowSize;
 };
