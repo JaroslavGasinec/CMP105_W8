@@ -7,6 +7,8 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	input = in;
 	ball1 = new Ball(&windowSize);
 	ball2 = new Ball(&windowSize);
+	goomba = new Goomba(&windowSize);
+	goomba2 = new Goomba(&windowSize);
 
 	// initialise game objects
 	ballT.loadFromFile("gfx/Beach_Ball.png");
@@ -24,7 +26,18 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	ball2->setTexture(&ballT);
 	ball2->setVelocity(150, 0);
 
+	goombaT.loadFromFile("gfx/Goomba.png");
+	goomba->setSize(sf::Vector2f(100, 100));
+	goomba->setPosition(50, 350);
+	goomba->setCollisionBox(25, 0, 50, 100);
+	goomba->setTexture(&goombaT);
+	goomba->setVelocity(150, 0);
 
+	goomba2->setSize(sf::Vector2f(100, 100));
+	goomba2->setPosition(200, 350);
+	goomba2->setCollisionBox(25, 0, 50, 100);
+	goomba2->setTexture(&goombaT);
+	goomba2->setVelocity(-150, 0);
 }
 
 Level::~Level()
@@ -42,12 +55,19 @@ void Level::handleInput(float dt)
 void Level::update(float dt)
 {
 	windowSize = window->getSize();
+
 	if (circularCollisionCheck(ball1, ball2)) {
 		ball1->collisionResponse(NULL);
 		ball2->collisionResponse(NULL);
 	}
+	if (Collision::checkBoundingBox(goomba, goomba2)) {
+		goomba->collisionResponse(NULL);
+		goomba2->collisionResponse(NULL);
+	}
 	ball1->update(dt);
 	ball2->update(dt);
+	goomba->update(dt);
+	goomba2->update(dt);
 }
 
 // Render level
@@ -56,6 +76,8 @@ void Level::render()
 	beginDraw();
 	window->draw(*ball1);
 	window->draw(*ball2);
+	window->draw(*goomba);
+	window->draw(*goomba2);
 	endDraw();
 }
 

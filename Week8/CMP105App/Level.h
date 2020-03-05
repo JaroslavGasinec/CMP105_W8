@@ -2,9 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "Framework/Input.h"
+#include "Framework/Collision.h"
 #include <string>
 #include <iostream>
 #include "Ball.h"
+#include "Goomba.h"
+
 
 
 class Level{
@@ -28,5 +31,8 @@ private:
 	Ball* ball1;
 	Ball* ball2;
 	sf::Texture ballT;
+	sf::Texture goombaT;
+	GameObject* goomba;
+	GameObject* goomba2;
 	sf::Vector2u windowSize;
 };
