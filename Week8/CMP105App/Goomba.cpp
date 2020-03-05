@@ -15,7 +15,7 @@ Goomba::~Goomba()
 
 void Goomba::update(float dt)
 {
-	if (getPosition().x + getSize().x > windowSize->x || getPosition().x < 0) {
+	if (getPosition().x + getSize().x + velocity.x * dt > windowSize->x || getPosition().x + velocity.x * dt < 0) {
 		velocity.x *= -1;
 	}
 	setPosition(getPosition() + velocity * dt);
@@ -23,5 +23,10 @@ void Goomba::update(float dt)
 
 void Goomba::collisionResponse(GameObject* collider)
 {
-	velocity.x *= -1;
+	if (collisionActive) {
+		velocity.x *= -1;
+		collisionActive = false;
+		return;
+	}
+	collisionActive = true;
 }

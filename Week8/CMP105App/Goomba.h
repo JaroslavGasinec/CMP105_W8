@@ -4,6 +4,7 @@ class Goomba :
 	public GameObject
 {
 	sf::Vector2u* windowSize;
+	bool collisionActive = true;
 
 public:
 	Goomba();

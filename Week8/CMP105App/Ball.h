@@ -3,9 +3,11 @@
 class Ball :
 	public GameObject
 {
+protected:
 	float boundCircleRadius = 20;
 	sf::Vector2u originOffset;
 	sf::Vector2u* windowSize;
+	bool collisionActive = true;
 
 public:
 	Ball();

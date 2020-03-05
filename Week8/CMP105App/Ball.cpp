@@ -15,7 +15,7 @@ Ball::~Ball()
 
 void Ball::update(float dt)
 {
-	if (getPosition().x + getSize().x > windowSize->x || getPosition().x < 0) {
+	if (getPosition().x + getSize().x + velocity.x * dt > windowSize->x || getPosition().x + velocity.x < 0) {
 		velocity.x *= -1;
 	}
 	setPosition(getPosition()+ velocity*dt);
@@ -23,7 +23,12 @@ void Ball::update(float dt)
 
 void Ball::collisionResponse(GameObject* collider)
 {
-	velocity.x *= -1;
+	if (collisionActive) {
+		velocity.x *= -1;
+		collisionActive = false;
+		return;
+	}
+	collisionActive = true;
 }
 
 void Ball::setOriginOffset(int x, int y)
